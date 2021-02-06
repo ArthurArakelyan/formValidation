@@ -1,0 +1,143 @@
+body {
+  background-color: #353535;
+  color: white;
+}
+.wrapper {
+  width: 700px;
+  margin: 0 auto;
+}
+
+.home {
+  padding: 60px 0 20px 0;
+}
+
+/*
+*** home header
+*/
+
+.home__header {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: #787878;
+  border-radius: 3px 3px 0 0;
+  padding: 10px;
+}
+.header__step {
+  font-weight: 500;
+  font-size: 20px;
+}
+.header__step span {
+  font-weight: 700;
+}
+
+/*
+*** home form
+*/
+
+.home__form {
+  background-color: #646464;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  border-radius: 0 0 3px 3px;
+  padding: 10px;
+}
+.form__input {
+  border-radius: 3px;
+  background-color: white;
+  outline: none;
+  border: none;
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 15px;
+  border: 2px solid transparent;
+  transition: border-color .3s ease-in-out;
+}
+.form__input.valid,
+.form__input:focus.valid {
+  border-color: lightgreen;
+}
+.form__input.invalid,
+.form__input:focus.invalid {
+  border-color: red;
+}
+.form__input:focus {
+  border-color: #cccccc;
+}
+.form__step_buttons {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.form__step_button {
+  position: relative;
+  outline: none;
+  border: none;
+  background-color: #e3e3e3;
+  color: #222;
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 7px 0;
+  width: 20%;
+  border-radius: 3px;
+  transition: color .3s ease-in-out;
+  z-index: 2;
+}
+.form__step_button:nth-child(2) {
+  margin-left: 10px;
+}
+.form__step_button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(0,170,255,0.48) 12%, rgba(0,170,255,0.70) 60%, rgba(0,170,255,1) 100%);
+  border-radius: 3px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease-in-out, color .3s ease-in-out, background-color .3s ease-in-out;
+}
+.form__step_button:hover::before {
+  transform: scaleX(1);
+}
+.form__step_button:hover {
+  color: white;
+}
+.form__step_button:active::before {
+  background-color: #0af;
+}
+.form__radios {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.form__radio_container:nth-child(2) {
+  margin-top: 10px;
+}
+.form__radio {
+  margin: 0 5px 0 0;
+}
+.form__date_inputs {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.form__date_input {
+  width: 30%;
+}
+.form__date_input:nth-child(2) {
+  margin-left: 10px;
+}
