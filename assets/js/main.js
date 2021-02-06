@@ -180,24 +180,52 @@ function formRerender() {
       formRerender();
     }
 
+    const regexp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
+
     if(step === 1) {
       const firstNameInput = createInput(newForm)('First Name', 'firstName', user.firstName.value, (e) => {
+        if(e.target.value.match(regexp) === false) {
+          e.target.value = user.firstName.value;
+        }
         user.firstName.value = e.target.value;
-        const valid = checkNameValidOnInput(firstNameInput, e.target.value, user.firstName.valid);
+        const valid = checkNameValidOnInput(
+          firstNameInput,
+          e.target.value,
+          e.target.value.match(regexp),
+          e.target.value.match(regexp)
+        );
         user.firstName.valid = valid;
         localStorage.setItem('data', JSON.stringify(data));
       });
       firstNameInput.minLength = 4;
-      checkNameValid(firstNameInput, user.firstName.value, user.firstName.valid);
+      checkNameValid(
+        firstNameInput,
+        user.firstName.value,
+        user.firstName.valid,
+        user.firstName.value.match(regexp)
+      );
 
       const lastNameInput = createInput(newForm)('Last Name', 'lastName', user.lastName.value, (e) => {
+        if(e.target.value.match(regexp) === false) {
+          e.target.value = user.lastName.value;
+        }
         user.lastName.value = e.target.value;
-        const valid = checkNameValidOnInput(lastNameInput, e.target.value, user.lastName.valid);
+        const valid = checkNameValidOnInput(
+          lastNameInput,
+          e.target.value,
+          e.target.value.match(regexp),
+          e.target.value.match(regexp)
+        );
         user.lastName.valid = valid;
         localStorage.setItem('data', JSON.stringify(data));
       });
       lastNameInput.minLength = 4;
-      checkNameValid(lastNameInput, user.lastName.value, user.lastName.valid);
+      checkNameValid(
+        lastNameInput,
+        user.lastName.value,
+        user.lastName.valid,
+        user.lastName.value.match(regexp)
+      );
 
       const countries = [
         'Choose your country',
@@ -449,12 +477,15 @@ function formRerender() {
       );
 
       const fullNameInput = createInput(newForm)('Full Name', 'fullName', userCard.fullName.value, (e) => {
+        if(e.target.value.match(regexp) === false) {
+          e.target.value = userCard.fullName.value;
+        }
         userCard.fullName.value = e.target.value;
         const valid = checkNameValidOnInput(
           fullNameInput,
           e.target.value,
-          e.target.value.length <= 100,
-          e.target.value.length <= 100
+          e.target.value.length <= 100 && e.target.value.match(regexp),
+          e.target.value.length <= 100 && e.target.value.match(regexp)
         );
         userCard.fullName.valid = valid;
         localStorage.setItem('data', JSON.stringify(data));
@@ -464,7 +495,7 @@ function formRerender() {
         fullNameInput,
         userCard.fullName.value,
         userCard.fullName.valid,
-        userCard.fullName.value.length <= 100
+        userCard.fullName.value.length <= 100 && userCard.fullName.value.match(regexp)
       );
 
       const cvcInput = createInput(newForm)('CVC 1234', 'cvc', userCard.cvc.value, (e) => {
@@ -521,6 +552,7 @@ function formRerender() {
         userCard.date.month.length === 2
       );
 
+      const date = new Date();
       const yearInput = createInput(dateInputs, ['form__input', 'form__date_input'])('YY', 'cardYear', userCard.date.year, (e) => {
         if(e.target.value.length > 2) {
           e.target.value = e.target.value.slice(0, 2);
@@ -529,8 +561,8 @@ function formRerender() {
         const valid = checkNameValidOnInput(
           yearInput,
           e.target.value,
-          e.target.value.length === 2,
-          e.target.value.length === 2
+          e.target.value.length === 2 && e.target.value >= Number(date.getFullYear().toString().substr(-2)),
+          e.target.value.length === 2 && e.target.value >= Number(date.getFullYear().toString().substr(-2))
         );
         userCard.date.yearValid = valid;
         localStorage.setItem('data', JSON.stringify(data));
@@ -542,7 +574,7 @@ function formRerender() {
         yearInput,
         userCard.date.year,
         userCard.date.yearValid,
-        userCard.date.year.length === 2
+        userCard.date.year.length === 2 && userCard.date.year >= Number(date.getFullYear().toString().substr(-2))
       );
     } else {
       stepChange(1);
